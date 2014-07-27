@@ -11,6 +11,9 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class ClassResolver implements ClassResolverInterface
 {
+    /**
+     * @var ServiceLocatorInterface
+     */
     protected $serviceLocator;
 
     /**
@@ -20,6 +23,7 @@ class ClassResolver implements ClassResolverInterface
 
     public function __construct(ServiceLocatorInterface $serviceLocator, $config = [])
     {
+        $this->serviceLocator = $serviceLocator;
         foreach ($config as $from => $to) {
             $this->addClass($from, $to);
         }

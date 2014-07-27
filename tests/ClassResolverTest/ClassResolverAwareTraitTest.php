@@ -24,7 +24,7 @@ class ClassResolverAwareTraitTest extends \PHPUnit_Framework_TestCase
 
     public function testSetGet()
     {
-        $mock = $this->getMock('ClassResolver\ClassResolver');
+        $mock = $this->getMock('ClassResolver\ClassResolver', [], [], '', false);
         $this->trait->setClassResolver($mock);
         $this->assertSame($mock, $this->trait->getClassResolver());
     }
