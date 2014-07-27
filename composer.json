@@ -1,0 +1,34 @@
+{
+    "name": "serlo-org/athene2-class-resolver",
+    "description": "Zend Framework 2 Module that provides class resolving components for Athene2",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "module",
+        "zf2",
+        "athene2",
+        "core",
+        "class resolver"
+    ],
+    "homepage": "https://github.com/serlo-org/athene2-class-resolver",
+    "authors": [
+        {
+            "name": "Aeneas Rekkas"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "zendframework/zend-servicemanager": "~2.3"
+    },
+    "require-dev": {
+        "zendframework/zendframework": "~2.2",
+        "phpunit/phpunit": "~3.7",
+        "squizlabs/php_codesniffer": "1.4.*",
+        "satooshi/php-coveralls": "~0.6"
+    },
+    "autoload": {
+        "psr-0": {
+            "ClassResolver\\": "src/"
+        }
+    }
+}
