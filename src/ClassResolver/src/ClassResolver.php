@@ -69,7 +69,8 @@ class ClassResolver implements ClassResolverInterface
             throw new Exception\RuntimeException(sprintf("Can't resolve %s (%s).", $class, $index));
         }
         if (!class_exists($this->registry[$index])) {
-            throw new Exception\RuntimeException(sprintf("Class `%s` not found, resolved from %s.", $this->registry[$index], $class));
+            $message = sprintf("Class `%s` not found, resolved from %s.", $this->registry[$index], $class);
+            throw new Exception\RuntimeException($message);
         }
 
         return $this->registry[$index];
@@ -97,7 +98,8 @@ class ClassResolver implements ClassResolverInterface
         }
 
         if (!$instance instanceof $class) {
-            throw new Exception\RuntimeException(sprintf('Class %s does not implement %s', get_class($instance), $class));
+            $message = sprintf('Class %s does not implement %s', get_class($instance), $class);
+            throw new Exception\RuntimeException($message);
         }
 
         return $instance;
