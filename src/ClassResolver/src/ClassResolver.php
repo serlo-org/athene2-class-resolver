@@ -7,7 +7,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * Class ClassResolver
  *
  * @package ClassResolver
- * @author Aeneas Rekkas
+ * @author  Aeneas Rekkas
  */
 class ClassResolver implements ClassResolverInterface
 {
@@ -21,6 +21,10 @@ class ClassResolver implements ClassResolverInterface
      */
     protected $registry;
 
+    /**
+     * @param ServiceLocatorInterface $serviceLocator
+     * @param array                   $config
+     */
     public function __construct(ServiceLocatorInterface $serviceLocator, $config = [])
     {
         $this->serviceLocator = $serviceLocator;
@@ -29,18 +33,30 @@ class ClassResolver implements ClassResolverInterface
         }
     }
 
+    /**
+     * @param string $from
+     * @param string $to
+     */
     protected function addClass($from, $to)
     {
         $this->registry[$this->getIndex($from)] = $to;
-
-        return $this;
     }
 
+    /**
+     * @param string $key
+     * @return string
+     */
     protected function getIndex($key)
     {
         return preg_replace('/[^a-z0-9]/i', '_', (string)$key);
     }
 
+    /**
+     * @param string $class
+     * @return string
+     * @throws Exception\RuntimeException
+     * @throws Exception\InvalidArgumentException
+     */
     protected function getClass($class)
     {
         if (!is_string($class)) {
@@ -53,37 +69,35 @@ class ClassResolver implements ClassResolverInterface
             throw new Exception\RuntimeException(sprintf("Can't resolve %s (%s).", $class, $index));
         }
         if (!class_exists($this->registry[$index])) {
-            throw new Exception\RuntimeException(sprintf(
-                "Class `%s` not found, resolved from %s.",
-                $this->registry[$index],
-                $class
-            ));
+            throw new Exception\RuntimeException(sprintf("Class `%s` not found, resolved from %s.", $this->registry[$index], $class));
         }
 
         return $this->registry[$index];
     }
 
-    public function resolveClassName($class)
+    /**
+     * {@inheritDoc}
+     */
+    public function resolveClassName($interface)
     {
-        return $this->getClass($class);
+        return $this->getClass($interface);
     }
 
-    public function resolve($class, $userServiceLocator = false)
+    /**
+     * {@inheritDoc}
+     */
+    public function resolve($class, $useServiceLocator = false)
     {
         $className = $this->getClass($class);
 
-        if ($userServiceLocator) {
+        if ($useServiceLocator) {
             $instance = $this->serviceLocator->get($this->getClass($class));
         } else {
             $instance = new $className();
         }
 
         if (!$instance instanceof $class) {
-            throw new Exception\RuntimeException(sprintf(
-                'Class %s does not implement %s',
-                get_class($instance),
-                $class
-            ));
+            throw new Exception\RuntimeException(sprintf('Class %s does not implement %s', get_class($instance), $class));
         }
 
         return $instance;

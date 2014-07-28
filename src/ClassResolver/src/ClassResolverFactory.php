@@ -8,7 +8,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * Class ClassResolverFactory
  *
  * @package ClassResolver
- * @author Aeneas Rekkas
+ * @author  Aeneas Rekkas
  */
 class ClassResolverFactory implements FactoryInterface
 {
@@ -17,8 +17,7 @@ class ClassResolverFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $config = $serviceLocator->get('config')['class_resolver'];
-
+        $config   = $serviceLocator->get('config')['class_resolver'];
         $instance = new ClassResolver($serviceLocator, $config);
 
         return $instance;

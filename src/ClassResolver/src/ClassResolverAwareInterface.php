@@ -11,13 +11,13 @@ interface ClassResolverAwareInterface
 {
 
     /**
-     * @return self
+     * @return ClassResolverInterface
      */
     public function getClassResolver();
 
     /**
      * @param ClassResolverInterface $classResolver
-     * @return self
+     * @return void
      */
     public function setClassResolver(ClassResolverInterface $classResolver);
 }

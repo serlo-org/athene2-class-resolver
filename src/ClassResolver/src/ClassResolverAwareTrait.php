@@ -11,11 +11,15 @@ trait ClassResolverAwareTrait
 {
 
     /**
+     * The ClassResolver instance
+     *
      * @var ClassResolverInterface
      */
     protected $classResolver;
 
     /**
+     * Gets the ClassResolver
+     *
      * @return ClassResolverInterface $classResolver
      */
     public function getClassResolver()
@@ -24,13 +28,13 @@ trait ClassResolverAwareTrait
     }
 
     /**
+     * Sets the ClassResolver
+     *
      * @param ClassResolverInterface $classResolver
-     * @return self
+     * @return void
      */
     public function setClassResolver(ClassResolverInterface $classResolver)
     {
         $this->classResolver = $classResolver;
-
-        return $this;
     }
 }
